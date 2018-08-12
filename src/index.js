@@ -1,5 +1,7 @@
 import Vue from 'vue/dist/vue.esm';
 
+Vue.config.devtools = true;
+
 Vue.component('my-button', {
   data: function() {
     return {
