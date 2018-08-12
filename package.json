@@ -16,6 +16,8 @@
     "vue": "^2.5.17"
   },
   "scripts": {
+    "watch": "webpack --watch",
+    "start": "webpack --watch & webpack-dev-server --open-page 'webpack-dev-server/'",
     "build": "webpack --config webpack.config.js"
   }
 }
