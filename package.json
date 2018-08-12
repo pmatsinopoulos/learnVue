@@ -17,7 +17,7 @@
   },
   "scripts": {
     "watch": "webpack --watch",
-    "start": "webpack --watch & webpack-dev-server --open-page 'webpack-dev-server/'",
+    "start": "webpack --watch & webpack-dev-server --open-page 'webpack-dev-server/dist'",
     "build": "webpack --config webpack.config.js"
   }
 }
