@@ -1,21 +1,35 @@
-import Vue from 'vue/dist/vue.esm';
+import Vue from 'vue';
+import upperFirst from 'lodash/upperFirst'
+import camelCase from 'lodash/camelCase'
 
-Vue.config.devtools = true;
+const requireComponent = require.context(
+  './components',
+  false,
+  /Base[A-Z]\w+\.(vue|js)$/
+);
 
-Vue.component('my-button', {
-  data: function() {
-    return {
-    }
-  },
-  props: ['button-value'],
-  template: '\
-    <button>{{ buttonValue }}</button>\
-  \
-  '
+requireComponent.keys().forEach(fileName => {
+  // Get component config
+  const componentConfig = requireComponent(fileName);
+  // Get PascalCase name of component
+  const componentName = upperFirst(
+    camelCase(
+      // strip the leading './' and extension from filename
+      fileName.replace(/^\.\/(.*)\.\w+$/, '$1')
+    )
+  )
+
+  Vue.component(
+    componentName,
+    // Look for the component options on "default", which will
+    // exist if the component was exported with "export default",
+    // otherwise,  fall back to module's root
+    componentConfig.default || componentConfig
+  )
 });
 
-let vm = new Vue({
-  el: '#app',
+const vm = new Vue({
+  el: '#app'
 });
 
 export default vm;
